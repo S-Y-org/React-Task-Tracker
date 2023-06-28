@@ -2,18 +2,24 @@
 // It used to be the case in older versions of React. But now we can just import it once in index.js and use it everywhere.
 
 import PropTypes from "prop-types";
+import Button from "./Button";
 
 const Header = ({ title }) => {
+  const onClick = () => {
+    console.log("Clicked");
+  };
+
   return (
-    <header>
+    <header className="header">
       <h1>{title}</h1>
       {/* <h1 style={headingStyle}>{title}</h1> */}
+      <Button color="green" text="Add" onClick={onClick} />
     </header>
   );
 };
 
 Header.defaultProps = {
-  title: "Task Tracker", //since we have defined the title in App.js,it will override this default value.
+  title: "Hello", //since we have defined the title in App.js,it will override this default value.
 };
 
 Header.propTypes = {

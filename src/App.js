@@ -1,12 +1,14 @@
 import React from "react";
 import Header from "./components/Header";
+import Task from "./components/Task";
 
 const App = () => {
   return (
     <div className="container">
-      <Header title="Hello" />
+      <Header title="Task Tracker" />
       {/* If u want to pass a num/boolean in title use {} 
       Ex: <Header title={1}} /> */}
+      <Task />
     </div>
   );
 };
