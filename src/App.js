@@ -5,6 +5,7 @@ import Tasks from "./components/Tasks";
 import AddTask from "./components/AddTask";
 
 const App = () => {
+  const [showAddTask, setShowAddTask] = useState(false); //useState is a hook. Hooks are a new addition in React 16.8. They let you use state and other React features without writing a class.
   const [tasks, setTasks] = useState([
     {
       id: 1,
@@ -26,6 +27,16 @@ const App = () => {
     },
   ]);
 
+  //Add Task
+  const addTask = (task) => {
+    const id = Math.floor(Math.random() * 10000) + 1; //Generates a random number between 1 and 10000
+
+    const newTask = { id, ...task }; //Creates a new task with the id and the task object
+
+    setTasks([...tasks, newTask]); //Adds the new task to the tasks array
+    //...tasks means to copy the tasks array and add the newTask to it
+  };
+
   //Delete Task
   const deleteTask = (id) => {
     setTasks(tasks.filter((task) => task.id !== id));
@@ -42,10 +53,14 @@ const App = () => {
 
   return (
     <div className="container">
-      <Header title="Task Tracker" />
+      <Header
+        title="Task Tracker"
+        onAdd={() => setShowAddTask(!showAddTask)}
+        showAdd={showAddTask}
+      />
       {/* If u want to pass a num/boolean in title use {} 
       Ex: <Header title={1}} /> */}
-      <AddTask />
+      {showAddTask && <AddTask onAdd={addTask} />}
       {/* orange color tasks is the
       prop name and the yellow color tasks is the state name in the below code*/}
       {tasks.length > 0 ? (

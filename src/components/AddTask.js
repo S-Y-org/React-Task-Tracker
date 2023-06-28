@@ -1,12 +1,27 @@
 import { useState } from "react";
 
-const AddTask = () => {
+const AddTask = ({ onAdd }) => {
   const [text, setText] = useState("");
   const [day, setDay] = useState("");
   const [reminder, setReminder] = useState(false);
 
+  const onSubmit = (e) => {
+    e.preventDefault(); //Prevents the page from submitting to a file
+
+    if (!text) {
+      alert("Please add a task");
+      return;
+    }
+
+    onAdd({ text, day, reminder }); //This is the prop that we passed in from App.js. We are passing in the text, day, and reminder values from the form to the onAdd function in App.js
+
+    setText("");
+    setDay("");
+    setReminder(false);
+  };
+
   return (
-    <form className="add-form">
+    <form className="add-form" onSubmit={onSubmit}>
       <div className="form-control">
         <label>Task</label>
         <input
@@ -33,6 +48,7 @@ const AddTask = () => {
         <label>Set Reminder</label>
         <input
           type="checkbox"
+          checked={reminder} //This is a boolean value
           value={reminder}
           onChange={(e) => {
             setReminder(e.currentTarget.checked); //Since this is a checkbox, we need to use e.currentTarget.checked. This will give us a true or false value if the checkbox is checked or not.
